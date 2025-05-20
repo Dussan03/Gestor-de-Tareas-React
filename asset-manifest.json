@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/gestor-tareas/static/css/main.531ff4ba.css",
+    "main.js": "/gestor-tareas/static/js/main.df40fac2.js",
+    "static/js/488.5555df97.chunk.js": "/gestor-tareas/static/js/488.5555df97.chunk.js",
+    "index.html": "/gestor-tareas/index.html",
+    "main.531ff4ba.css.map": "/gestor-tareas/static/css/main.531ff4ba.css.map",
+    "main.df40fac2.js.map": "/gestor-tareas/static/js/main.df40fac2.js.map",
+    "488.5555df97.chunk.js.map": "/gestor-tareas/static/js/488.5555df97.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.531ff4ba.css",
+    "static/js/main.df40fac2.js"
+  ]
+}
