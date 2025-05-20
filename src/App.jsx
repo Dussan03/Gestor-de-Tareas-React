@@ -1,15 +1,28 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TaskForm from "./components/TaskForm";
 import TaskList from "./components/TaskList";
 import CompletedTasks from "./components/CompletedTasks";
 
 export default function App() {
-  const [tasks, setTasks] = useState([]);
+  // Cargar tareas desde localStorage al inicio
+  const [tasks, setTasks] = useState(() => {
+    const storedTasks = localStorage.getItem("tasks");
+    return storedTasks ? JSON.parse(storedTasks) : [];
+  });
+
   const [view, setView] = useState("pending");
 
+  // Guardar en localStorage cada vez que cambien las tareas
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
+
   const addTask = (text) => {
-    const newTask = { id: Date.now(), text, completed: false };
-    setTasks([...tasks, newTask]);
+    if (text.trim() !== "") {
+      const newTask = { id: Date.now(), text, completed: false };
+      setTasks([...tasks, newTask]);
+      setView("pending"); // Cambiar a vista de tareas después de añadir
+    }
   };
 
   const toggleTask = (id) => {
@@ -20,6 +33,7 @@ export default function App() {
     );
   };
 
+  // Filtrar tareas según la vista activa
   const filteredTasks = tasks.filter(
     (task) => (view === "pending" && !task.completed) || (view === "completed" && task.completed)
   );
@@ -37,7 +51,7 @@ export default function App() {
             }`}
             onClick={() => setView("pending")}
           >
-            Ver Tareas
+            Tareas Pendientes
           </button>
           <button
             className={`px-4 py-2 rounded-xl transition ${
@@ -45,7 +59,7 @@ export default function App() {
             }`}
             onClick={() => setView("completed")}
           >
-            Tareas Realizadas
+            Tareas Completadas
           </button>
           <button
             className={`px-4 py-2 rounded-xl transition ${
