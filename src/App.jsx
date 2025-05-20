@@ -21,7 +21,7 @@ export default function App() {
     if (text.trim() !== "") {
       const newTask = { id: Date.now(), text, completed: false };
       setTasks([...tasks, newTask]);
-      setView("pending"); // Cambiar a vista de tareas después de añadir
+      setView("pending");
     }
   };
 
@@ -31,6 +31,11 @@ export default function App() {
         task.id === id ? { ...task, completed: !task.completed } : task
       )
     );
+  };
+
+  // Nueva función para eliminar tareas
+  const deleteTask = (id) => {
+    setTasks(tasks.filter((task) => task.id !== id));
   };
 
   // Filtrar tareas según la vista activa
@@ -74,10 +79,18 @@ export default function App() {
         {/* Vista dinámica */}
         {view === "add" && <TaskForm onAdd={addTask} />}
         {view === "pending" && (
-          <TaskList tasks={filteredTasks} onToggle={toggleTask} />
+          <TaskList 
+            tasks={filteredTasks} 
+            onToggle={toggleTask} 
+            onDelete={deleteTask} 
+          />
         )}
         {view === "completed" && (
-          <CompletedTasks tasks={filteredTasks} onToggle={toggleTask} />
+          <CompletedTasks 
+            tasks={filteredTasks} 
+            onToggle={toggleTask} 
+            onDelete={deleteTask} 
+          />
         )}
       </div>
     </div>
